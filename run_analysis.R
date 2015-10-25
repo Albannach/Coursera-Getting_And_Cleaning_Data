@@ -48,3 +48,12 @@ meanSTD <- data.frame(lapply(meanSTD, as.character), stringsAsFactors=FALSE)
 colnames(onlyMeanSTD) = c(c("id","Subject","Activity"), meanSTD[,2])
 
 # 5 From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+onlyMeanSTD$Activity = activities$V1[onlyMeanSTD$Activity]
+byActivitySubject = aggregate(onlyMeanSTD, by=list(onlyMeanSTD$Activity, onlyMeanSTD$Subject), FUN=mean, na.rm=TRUE)
+byActivitySubject$Activity = activities$V2[byActivitySubject$Activity]
+byActivitySubject$Group.1=NULL
+byActivitySubject$Group.2=NULL
+byActivitySubject$id=NULL
+write.table(byActivitySubject, file='tidy.txt', sep=',', row.names = FALSE, col.names = FALSE)
+
+
