@@ -5,7 +5,7 @@ library(data.table, quietly=TRUE)
 library(dplyr, quietly=TRUE)
 library(stringr, quietly=TRUE)
 
-dataDir = "../getdata_projectfiles_UCI HAR Dataset/UCI HAR Dataset/"
+dataDir = "./"
 
 activities = read.table(paste0(dataDir, "activity_labels.txt"), header=FALSE, sep=" ")
 features = read.table(paste0(dataDir, "features.txt"), header=FALSE, sep=" ")
@@ -14,12 +14,12 @@ meanSTD = features[which(str_locate(features$V2, "-mean\\(") != 0 |
                          str_locate(features$V2, "-std\\(") != 0),]
 meanSTD = meanSTD[complete.cases(meanSTD),]
 
-rawDataFiles = paste0(dataDir, c("test/X_test.txt",
-                                 "test/Y_test.txt",
-                                 "test/subject_test.txt",
-                                 "train/X_train.txt",
-                                 "train/Y_train.txt",
-                                 "train/subject_train.txt"))
+rawDataFiles = paste0(dataDir, c("X_test.txt",
+                                 "Y_test.txt",
+                                 "subject_test.txt",
+                                 "X_train.txt",
+                                 "Y_train.txt",
+                                 "subject_train.txt"))
 
 dTRaw = lapply(rawDataFiles, fread)
 
